@@ -1,0 +1,26 @@
+{
+  "name": "streetfleet-mq",
+  "version": "1.0.0",
+  "description": "Message Queue to aggregate trips for StreetFleet",
+  "main": "index.js",
+  "author": "Arol Viñolas",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "koa": "^2.5.0",
+    "koa-body": "^2.5.0",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.0.11",
+    "redis": "^2.8.0",
+    "redis-smq": "^1.0.14"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
+}
