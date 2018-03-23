@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  namespace: 'streetfleet',
+  namespace: 'default',
   redis: {
     host: '127.0.0.1',
     port: 6379,
@@ -10,7 +10,7 @@ module.exports = {
   log: {
     enabled: 0,
     options: {
-      level: 'trace',
+      level: 'debug',
     },
   },
   monitor: {
