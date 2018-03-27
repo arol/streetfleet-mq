@@ -6,6 +6,7 @@ const redisSMQ = require('redis-smq');
 
 require('./db');
 const Trip = require('./models/trip');
+const Company = require('./models/company');
 
 const Consumer = redisSMQ.Consumer;
 
@@ -34,7 +35,19 @@ class QueueConsumer extends Consumer {
    * @param cb
    */
   async consume(message, cb) {
-    console.log(`Got message to consume: `, message);
+    const updateTotalTimeMiles = async () => {
+      const trips = await Trip.find({mac_address: message.mac_address});
+      if (trips.length) {
+        const lastTrip = trips.slice(-1)[0];
+        const distance = lastTrip.distance;
+        const time = lastTrip.end_time - lastTrip.start_time;
+        const company = await Company.findOne({fleet: {$elemMatch: {mac_address: message.mac_address}}});
+        const vehicles = company.fleet.filter(vehicle => vehicle.mac_address === message.mac_address);
+        vehicles[0].total_driving_time += time;
+        vehicles[0].total_miles_driven += distance;
+        await company.save();
+      }
+    }
     const locationTime = new Date(message.time);
     const fifteenMinAgo = new Date(locationTime-timeThreshold);
     let trip = await Trip.findOne({
@@ -45,6 +58,7 @@ class QueueConsumer extends Consumer {
     });
 
     if(!trip) {
+      updateTotalTimeMiles();
       trip = new Trip({
         mac_address: message.mac_address,
         start_time: message.time,

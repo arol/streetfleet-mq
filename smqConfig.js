@@ -3,8 +3,8 @@
 module.exports = {
   namespace: 'default',
   redis: {
-    host: '127.0.0.1',
-    port: 6379,
+    host: process.env.REDIS_URL,
+    port: process.env.REDIS_PORT,
     connect_timeout: 3600000,
   },
   log: {
@@ -13,9 +13,9 @@ module.exports = {
       level: 'debug',
     },
   },
-  monitor: {
-    enabled: true,
-    host: '127.0.0.1',
-    port: 3001,
-  },
+  // monitor: {
+  //   enabled: true,
+  //   host: '127.0.0.1',
+  //   port: 3001,
+  // },
 };
