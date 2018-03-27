@@ -35,7 +35,7 @@ class QueueConsumer extends Consumer {
    * @param cb
    */
   async consume(message, cb) {
-    const updateTotalTimeMiles = async () => {
+    const updateTotalTimeKm = async () => {
       const trips = await Trip.find({mac_address: message.mac_address});
       if (trips.length) {
         const lastTrip = trips.slice(-1)[0];
@@ -44,7 +44,7 @@ class QueueConsumer extends Consumer {
         const company = await Company.findOne({fleet: {$elemMatch: {mac_address: message.mac_address}}});
         const vehicles = company.fleet.filter(vehicle => vehicle.mac_address === message.mac_address);
         vehicles[0].total_driving_time += time;
-        vehicles[0].total_miles_driven += distance;
+        vehicles[0].total_km_driven += distance;
         await company.save();
       }
     }
@@ -58,7 +58,7 @@ class QueueConsumer extends Consumer {
     });
 
     if(!trip) {
-      updateTotalTimeMiles();
+      updateTotalTimeKm();
       trip = new Trip({
         mac_address: message.mac_address,
         start_time: message.time,
