@@ -19,7 +19,7 @@ const companyData = [
         license_number: '3g329423',
         MAC_address: 'a5:b7:cc:98:45',
         total_driving_time: 200,
-        total_miles_driven: 400
+        total_km_driven: 400
       }
     ]
   },
@@ -35,7 +35,7 @@ const companyData = [
         license_number: '39423',
         MAC_address: 'a5:b7:bb:98:45',
         total_driving_time: 300,
-        total_miles_driven: 78
+        total_km_driven: 78
       }
     ]
   },
@@ -51,7 +51,7 @@ const companyData = [
         license_number: '39423',
         MAC_address: 'a5:b7:bb:98:45',
         total_driving_time: 300,
-        total_miles_driven: 78
+        total_km_driven: 78
       }
     ]
   }
