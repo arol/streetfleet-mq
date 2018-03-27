@@ -21,9 +21,3 @@ app
   .use(router.allowedMethods());
 
 app.listen(process.env.PORT || 3000);
-
-// const monitorServer = require('redis-smq').monitor(config);
-
-// monitorServer.listen(() => {
-//     console.log('Monitor server is running...');
-// });
