@@ -12,10 +12,5 @@ module.exports = {
     options: {
       level: 'debug',
     },
-  },
-  // monitor: {
-  //   enabled: true,
-  //   host: '127.0.0.1',
-  //   port: 3001,
-  // },
+  }
 };
