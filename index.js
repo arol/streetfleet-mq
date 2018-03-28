@@ -6,6 +6,12 @@ const router = require('koa-router')();
 const smq = require('./producer');
 const bodyparser = require('koa-body');
 
+const config = require('./smqConfig');
+const QueueConsumer = require('./consumer');
+
+const consumer = new QueueConsumer(config, { messageConsumeTimeout: 2000 });
+consumer.run();
+
 router.post('/', smq);
 
 app
@@ -15,10 +21,3 @@ app
   .use(router.allowedMethods());
 
 app.listen(process.env.PORT || 3000);
-
-const config = require('./smqConfig');
-const monitorServer = require('redis-smq').monitor(config);
-
-monitorServer.listen(() => {
-    console.log('Monitor server is running...');
-});
